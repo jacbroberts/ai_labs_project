@@ -16,7 +16,7 @@ location = [0,0]
 rotation = [0,0,0,0]
 yaw = 0.0
 
-p = [[2.1,2.1],[12,14],[-4,-8]]
+p = [[2.1,2.1],[12,14],[-4,-8],[5,6],[23,11],[-28,-8],[8,12],[12,9]]
 
 def odomCallback(data):
     global location, rotation, yaw
@@ -56,11 +56,11 @@ locationSub = rospy.Subscriber('/nature/odometry',Odometry, odomCallback)
 pub = rospy.Publisher('/nature/cmd_vel', Twist, queue_size=10)
 rate = rospy.Rate(10)
 action = np.array([])
-Kp, Kd, Ki = 0.01, 0, 0
+Kp, Kd, Ki = 0.01, 0, 0.001
 HKp, HKd, HKi = 0.1, 10, 0
 i = 0
-DintMax = 1
-DintMin = -1
+DintMax = 10
+DintMin = -10
 print(f"heading to point {i}: [{p[i][0]},{p[i][1]}]")
 while not rospy.is_shutdown():
     twist = Twist()
